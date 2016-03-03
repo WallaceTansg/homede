@@ -80,14 +80,41 @@ matchscore2<- function(words,title,desc){
   return(c(nwords_termL,n_title,n_desc))
  
 }
-a<-unlist(strsplit("angle bracket",split=" ",fixed=T))
-b<-unlist(strsplit("not only do angles make joints stronger, they also provide more consistent, straight corners. simpson strong-tie offers a wide variety of angles in various sizes and thicknesses to handle light-duty jobs or projects where a structural connection is needed. some can be bent (skewed) to match the project. for outdoor projects or those where moisture is present, use our zmax zinc-coated connectors, which provide extra resistance against corrosion (look for a z at the end of the model number).versatile connector for various 90 connections and home repair projectsstronger than angled nailing or screw fastening alonehelp ensure joints are consistently straight and strongdimensions: 3 in. x 3 in. x 1-1/2 in.made from 12-gauge steelgalvanized for extra corrosion resistanceinstall with 10d common nails or #9 x 1-1/2 in. strong-drive sd screws",split=c('[ ]')))    
 
-c<-b %in% a
-ifelse(c=="TRUE",1,0)
+matchscore2<- function(Sterm,Ptitle,desc)
+{
+term<-unlist(strsplit(Sterm[i],split=" ",fixed=T))
+title<-unlist(strsplit(Ptitle[i],split=" ",fixed=T))
+desc<-unlist(strsplit(desc[i],split=" ",fixed=T))    
+#exactly match 
+term_title<-title %in% term
+term_desc<-desc %in% term
+ematch_term_title<-sum(ifelse(term_title=="TRUE",1,0))
+ematch_term_desc<-sum(ifelse(term_desc=="TRUE",1,0))
+#partial match
+d<-grepl(a[1],title)
+pmatch<-sum(ifelse(d=="TRUE",1,0))
+}
 
-d<-sum(grepl(a[2],b)) 
-ifelse(d=="TRUE",1,0)
+
+term<-unlist(strsplit("abc",split="",fixed=T))
+title<-unlist(strsplit("abde",split="",fixed=T))
+desc<-unlist(strsplit("acdef",split="",fixed=T))    
+
+#exactly match 
+c<-title%in%term
+sum(ifelse(c=="TRUE",1,0))
+
+#partial match
+d<-grepl(term,title)
+sum(ifelse(d=="TRUE",1,0))
+
+
+
+
+
+
+
 
 
 
